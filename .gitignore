@@ -1,0 +1,15 @@
+# Packet Tracer backups and temp files
+*.pkt~
+*.pka~
+*.bak
+*.tmp
+~$*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
