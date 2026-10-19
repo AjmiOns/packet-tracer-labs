@@ -1,11 +1,11 @@
 # Packet Tracer Labs
 
 ![Cisco Packet Tracer](https://img.shields.io/badge/Cisco-Packet%20Tracer%208.x-1BA0D7?logo=cisco&logoColor=white)
-![Protocols](https://img.shields.io/badge/protocols-eBGP%20%7C%20OSPFv2%20%7C%20ACLs-2E75B6)
+![Protocols](https://img.shields.io/badge/protocols-eBGP%20%7C%20OSPFv2%20%7C%20ACLs%20%7C%20ZPF-2E75B6)
 ![Status](https://img.shields.io/badge/status-in%20progress-yellow)
 ![Purpose](https://img.shields.io/badge/purpose-educational-lightgrey)
 
-Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-domain routing with **BGP**, intra-domain routing with **OSPFv2** and traffic filtering with **access control lists (ACLs)**. Each lab ships with the topology file, the original statement when available, annotated screenshots, and a written report (*compte rendu*) containing the exact commands used.
+Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-domain routing with **BGP**, intra-domain routing with **OSPFv2** traffic filtering with **access control lists (ACLs)** and stateful filtering with a **zone-based policy firewall (ZPF)**. Each lab ships with the topology file, the original statement when available, annotated screenshots, and a written report (*compte rendu*) containing the exact commands used.
 
 ---
 
@@ -16,6 +16,7 @@ Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-doma
 - [Lab 1 - eBGP basics](#lab-1---ebgp-basics)
 - [Lab 2 - BGP across three autonomous systems](#lab-2---bgp-across-three-autonomous-systems)
 - [Lab 3 - Access control lists (ACLs)](#lab-3---access-control-lists-acls)
+- [Lab 4 - Zone-Based Policy Firewall (ZPF)](#lab-4---zone-based-policy-firewall-zpf)
 - [OSPF - Single-area OSPFv2](#ospf---single-area-ospfv2)
 - [Getting started](#getting-started)
 - [Verification cheat sheet](#verification-cheat-sheet)
@@ -59,6 +60,9 @@ packet-tracer-labs/
     ├── topology-01-standard.png                 # Topology screenshots (used in README)
     ├── topology-02-extended-scenario1.png
     └── topology-03-extended-scenario3.png
+└── lab4-ZPF-Firewall/
+    ├── Configuring a Zone-Based Policy Firewall (ZPF).pka
+    └── Packet-Tracer-Configuring-a-Zone-Based-Policy-Firewall-ZPF.pdf   # Activity instructions
 ```
 
 ## Labs overview
@@ -68,6 +72,7 @@ packet-tracer-labs/
 | [Lab 1](lab1-ebgp-basic) | eBGP between a company and its ISP | R1, R2, ISP-1 (Cisco 1941) | AS 65000, AS 65001 | `.pkt`, statement, report, screenshots |
 | [Lab 2](lab2-bgp-configuration) | eBGP chain across three ASes | nw_R1, nw_R2, nw_R3 (Cisco 2811) | AS 100, AS 200, AS 300 | `.pkt`, practice file, report, screenshots |
 | [Lab 3](lab3-ACLs) | Standard and extended ACLs (3 activities) | R1-R3, R1, RT1 | Traffic filtering | `.pka`, statements, 3 reports |
+| [Lab 4](lab4-ZPF-Firewall) | Zone-Based Policy Firewall | see activity | Security zones | `.pka`, instructions |
 | [OSPF](configurationPackTracer) | Single-area OSPFv2 | see activity | Area 0 | `.pkt` |
 
 ---
@@ -204,6 +209,37 @@ The excerpt shows the rules for Server1 only; the full ACL (9 rules, the same ru
 - Rule order, the implicit `deny any`, and the `in` / `out` direction on an interface
 - Verification with `show access-list` (rules and match counters) and targeted pass/fail tests
 
+## Lab 4 - Zone-Based Policy Firewall (ZPF)
+
+Packet Tracer activity on configuring a **zone-based policy firewall** on a Cisco router. ZPF replaces per-interface ACLs with a model based on **security zones**: interfaces are grouped into zones, and a policy decides which traffic may flow from one zone to another. Open [`Configuring a Zone-Based Policy Firewall (ZPF).pka`](lab4-ZPF-Firewall) in Packet Tracer and follow the [activity instructions](lab4-ZPF-Firewall/Packet-Tracer-Configuring-a-Zone-Based-Policy-Firewall-ZPF.pdf).
+
+**How a ZPF configuration is built** (generic model, names are placeholders)
+
+```
+Router(config)# zone security <ZONE-A>
+Router(config)# zone security <ZONE-B>
+
+Router(config)# class-map type inspect match-any <CLASS-NAME>
+Router(config-cmap)# match protocol <protocol>
+
+Router(config)# policy-map type inspect <POLICY-NAME>
+Router(config-pmap)# class type inspect <CLASS-NAME>
+Router(config-pmap-c)# inspect
+
+Router(config)# zone-pair security <PAIR-NAME> source <ZONE-A> destination <ZONE-B>
+Router(config-sec-zone-pair)# service-policy type inspect <POLICY-NAME>
+
+Router(config)# interface <interface>
+Router(config-if)# zone-member security <ZONE-A>
+```
+
+**What it demonstrates**
+
+- Creating security zones and assigning interfaces to them (`zone security`, `zone-member security`)
+- Classifying traffic with a class map and choosing an action in a policy map (`inspect`, `pass` or `drop`)
+- Applying the policy to a **zone pair**, which is unidirectional (source zone to destination zone)
+- Stateful inspection: with `inspect`, return traffic is allowed automatically
+
 ## OSPF - Single-area OSPFv2
 
 Packet Tracer activity on single-area OSPFv2 (area 0). Open the `.pkt` file in [`configurationPackTracer`](configurationPackTracer) and follow the activity instructions embedded in the file.
@@ -237,6 +273,9 @@ Open any `.pkt` or `.pka` file with Packet Tracer (`File > Open`). Router config
 | `show ip bgp summary` | any BGP router | Neighbor state and number of prefixes received |
 | `show access-list` | any router with ACLs | Rules in order, with match counters |
 | `show ip interface <int>` | any router with ACLs | Which ACL is applied on the interface, and in which direction |
+| `show zone security` | ZPF router | Zones and the interfaces that belong to them |
+| `show zone-pair security` | ZPF router | Zone pairs and the policy applied to each |
+| `show policy-map type inspect zone-pair` | ZPF router | Inspection policy details and per-class counters |
 | `ping <ip>` | routers and PCs | End-to-end reachability |
 | `copy running-config startup-config` | any router | Persist the configuration |
 
@@ -249,6 +288,8 @@ Open any `.pkt` or `.pka` file with Packet Tracer (`File > Open`). Router config
 - **Place standard ACLs near the destination and extended ACLs near the source.** A standard ACL only sees the source address, so putting it close to the source would block too much.
 - **ACLs end with an implicit `deny any`.** List what is allowed, or finish with `permit ip any any` when you only want to block specific flows.
 - **Rule order matters.** The first matching rule wins, so specific rules go before general ones.
+- **ZPF zone pairs are unidirectional.** A policy from zone A to zone B says nothing about B to A; with `inspect`, return traffic of an allowed session is permitted automatically.
+- **Traffic between different zones is dropped by default** unless a zone pair with a policy allows it, whereas traffic inside one zone flows freely.
 - **A router-generated `Destination host unreachable` means an ACL (or routing) decision**, whereas `Request timed out` points to a lost or silently dropped packet.
 
 ## Conventions
@@ -276,4 +317,3 @@ Labs completed as part of the routing protocols course. Feedback and suggestions
   <br>
   <sub>Network Engineering • Cisco Packet Tracer</sub>
 </p>
-
