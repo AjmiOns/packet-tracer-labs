@@ -262,7 +262,7 @@ Packet Tracer activity 21.7.5: configure a **Cisco ASA 5506-X** from the command
 **Topology**
 
 <p align="center">
-  <img src="lab5-ASA-Firewall/topology.png" alt="Lab 5 topology: ASA 5506-X with INSIDE, DMZ and OUTSIDE zones, routers R1 to R3 and PC-B, PC-C and a DMZ server" width="800">
+  <img src="lab5-ASA-Firewall/Topology.png" alt="Lab 5 topology: ASA 5506-X with INSIDE, DMZ and OUTSIDE zones, routers R1 to R3 and PC-B, PC-C and a DMZ server" width="800">
   <br><em>Lab 5 - ASA 5506-X between R1 (OUTSIDE), S2/PC-B (INSIDE) and S1/DMZ server (DMZ)</em>
 </p>
 
