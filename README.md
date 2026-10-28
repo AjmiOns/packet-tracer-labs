@@ -1,11 +1,11 @@
 # Packet Tracer Labs
 
 ![Cisco Packet Tracer](https://img.shields.io/badge/Cisco-Packet%20Tracer%208.x-1BA0D7?logo=cisco&logoColor=white)
-![Protocols](https://img.shields.io/badge/protocols-eBGP%20%7C%20OSPFv2%20%7C%20ACLs%20%7C%20ZPF-2E75B6)
+![Protocols](https://img.shields.io/badge/protocols-eBGP%20%7C%20OSPFv2%20%7C%20ACLs%20%7C%20ZPF%20%7C%20ASA-2E75B6)
 ![Status](https://img.shields.io/badge/status-in%20progress-yellow)
 ![Purpose](https://img.shields.io/badge/purpose-educational-lightgrey)
 
-Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-domain routing with **BGP**, intra-domain routing with **OSPFv2** traffic filtering with **access control lists (ACLs)** and stateful filtering with a **zone-based policy firewall (ZPF)**. Each lab ships with the topology file, the original statement when available, annotated screenshots, and a written report (*compte rendu*) containing the exact commands used.
+Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-domain routing with **BGP**, intra-domain routing with **OSPFv2**, traffic filtering with **access control lists (ACLs)**, stateful filtering with a **zone-based policy firewall (ZPF)** and perimeter security with a **Cisco ASA firewall**. Each lab ships with the topology file, the original statement when available, annotated screenshots, and a written report (*compte rendu*) containing the exact commands used.
 
 ---
 
@@ -17,6 +17,7 @@ Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-doma
 - [Lab 2 - BGP across three autonomous systems](#lab-2---bgp-across-three-autonomous-systems)
 - [Lab 3 - Access control lists (ACLs)](#lab-3---access-control-lists-acls)
 - [Lab 4 - Zone-Based Policy Firewall (ZPF)](#lab-4---zone-based-policy-firewall-zpf)
+- [Lab 5 - Cisco ASA basic settings and firewall](#lab-5---cisco-asa-basic-settings-and-firewall)
 - [OSPF - Single-area OSPFv2](#ospf---single-area-ospfv2)
 - [Getting started](#getting-started)
 - [Verification cheat sheet](#verification-cheat-sheet)
@@ -33,7 +34,7 @@ packet-tracer-labs/
 ├── README.md
 ├── .gitignore
 ├── configurationPackTracer/          # Single-Area OSPFv2 Packet Tracer activity
-│   └── 2.7.1 ... Single-Area OSPFv2 ...
+│   └── Single-Area OSPFv2 Configuration.pka
 ├── lab-bgp-config/
 │   └── BGP_lab2.pkt                  # BGP topology (Lab 2 base file)
 ├── lab1-ebgp-basic/
@@ -47,22 +48,28 @@ packet-tracer-labs/
 │   ├── topology.png                  # Topology screenshot (used in README)
 │   ├── Lab2_BGP_Compte_Rendu.pdf     # Lab report with commands + screenshots
 │   └── Practice Lab - BGP Configuration 2 v1.pkt
-└── lab3-ACLs/
-    ├── 01.Configure Numbered Standard ACLs.pka
-    ├── 01.Configuring Standard ACLs Instructions.pdf
-    ├── 02.Configuring Extended ACLs Scenario 1.pka
-    ├── 02.Configuring Extended ACLs Scenario 1 Instructions IG.pdf
-    ├── 03.Configuring Extended ACLs Scenario 3.pka
-    ├── 03.Configuring Extended ACLs Scenario 3 Instructions IG.pdf
-    ├── Compte_rendu_01_ACL_standard.pdf
-    ├── Compte_rendu_02_ACL_etendue_scenario1.pdf
-    ├── Compte_rendu_03_ACL_etendue_scenario3.pdf
-    ├── topology-01-standard.png                 # Topology screenshots (used in README)
-    ├── topology-02-extended-scenario1.png
-    └── topology-03-extended-scenario3.png
-└── lab4-ZPF-Firewall/
-    ├── Configuring a Zone-Based Policy Firewall (ZPF).pka
-    └── Packet-Tracer-Configuring-a-Zone-Based-Policy-Firewall-ZPF.pdf   # Activity instructions
+├── lab3-ACLs/
+│   ├── 01.Configure Numbered Standard ACLs.pka
+│   ├── 01.Configuring Standard ACLs Instructions.pdf
+│   ├── 02.Configuring Extended ACLs Scenario 1.pka
+│   ├── 02.Configuring Extended ACLs Scenario 1 Instructions IG.pdf
+│   ├── 03.Configuring Extended ACLs Scenario 3.pka
+│   ├── 03.Configuring Extended ACLs Scenario 3 Instructions IG.pdf
+│   ├── Compte_rendu_01_ACL_standard.pdf
+│   ├── Compte_rendu_02_ACL_etendue_scenario1.pdf
+│   ├── Compte_rendu_03_ACL_etendue_scenario3.pdf
+│   ├── topology-01-standard.png                 # Topology screenshots (used in README)
+│   ├── topology-02-extended-scenario1.png
+│   └── topology-03-extended-scenario3.png
+├── lab4-ZPF-Firewall/
+│   ├── Configuring a Zone-Based Policy Firewall (ZPF).pka
+│   ├── Packet-Tracer-Configuring-a-Zone-Based-Policy-Firewall-ZPF.pdf   # Activity instructions
+│   └── topology.png                  # Topology screenshot (used in README)
+└── lab5-ASA-Firewall/
+    ├── Configure_ASA_Basic_Settings_and_Firewall_Using_the_CLI.pka
+    ├── Configure_ASA_Basic_Settings_and_Firewall_Using_the_CLI.pdf   # Activity instructions
+    ├── Lab5_ASA_Compte_Rendu.pdf     # Lab report with commands + screenshots
+    └── topology.png                  # Topology screenshot (used in README)
 ```
 
 ## Labs overview
@@ -72,7 +79,8 @@ packet-tracer-labs/
 | [Lab 1](lab1-ebgp-basic) | eBGP between a company and its ISP | R1, R2, ISP-1 (Cisco 1941) | AS 65000, AS 65001 | `.pkt`, statement, report, screenshots |
 | [Lab 2](lab2-bgp-configuration) | eBGP chain across three ASes | nw_R1, nw_R2, nw_R3 (Cisco 2811) | AS 100, AS 200, AS 300 | `.pkt`, practice file, report, screenshots |
 | [Lab 3](lab3-ACLs) | Standard and extended ACLs (3 activities) | R1-R3, R1, RT1 | Traffic filtering | `.pka`, statements, 3 reports |
-| [Lab 4](lab4-ZPF-Firewall) | Zone-Based Policy Firewall | see activity | Security zones | `.pka`, instructions |
+| [Lab 4](lab4-ZPF-Firewall) | Zone-Based Policy Firewall | R1, R2, R3 | Security zones | `.pka`, instructions |
+| [Lab 5](lab5-ASA-Firewall) | Cisco ASA 5506-X: interfaces, NAT, DHCP, SSH, DMZ, ACL | R1, R2, R3, ASA 5506-X | INSIDE / DMZ / OUTSIDE | `.pka`, instructions, report |
 | [OSPF](configurationPackTracer) | Single-area OSPFv2 | see activity | Area 0 | `.pkt` |
 
 ---
@@ -213,6 +221,13 @@ The excerpt shows the rules for Server1 only; the full ACL (9 rules, the same ru
 
 Packet Tracer activity on configuring a **zone-based policy firewall** on a Cisco router. ZPF replaces per-interface ACLs with a model based on **security zones**: interfaces are grouped into zones, and a policy decides which traffic may flow from one zone to another. Open [`Configuring a Zone-Based Policy Firewall (ZPF).pka`](lab4-ZPF-Firewall) in Packet Tracer and follow the [activity instructions](lab4-ZPF-Firewall/Packet-Tracer-Configuring-a-Zone-Based-Policy-Firewall-ZPF.pdf).
 
+**Topology**
+
+<p align="center">
+  <img src="lab4-ZPF-Firewall/topology.png" alt="Lab 4 topology: R1, R2 and R3 in a chain, a server behind R1 and PC-C behind R3" width="700">
+  <br><em>Lab 4 - R1, R2 and R3 linked by serial interfaces; PC-A (192.168.1.3) behind R1, PC-C (192.168.3.3) behind R3</em>
+</p>
+
 **How a ZPF configuration is built** (generic model, names are placeholders)
 
 ```
@@ -239,6 +254,61 @@ Router(config-if)# zone-member security <ZONE-A>
 - Classifying traffic with a class map and choosing an action in a policy map (`inspect`, `pass` or `drop`)
 - Applying the policy to a **zone pair**, which is unidirectional (source zone to destination zone)
 - Stateful inspection: with `inspect`, return traffic is allowed automatically
+
+## Lab 5 - Cisco ASA basic settings and firewall
+
+Packet Tracer activity 21.7.5: configure a **Cisco ASA 5506-X** from the command line at the edge of a company network. The ASA connects an internal LAN (**INSIDE**) and a public server zone (**DMZ**) to the ISP (**OUTSIDE**). R1, R2 and R3 simulate the ISP and the Internet, and PC-C plays the role of a remote administrator.
+
+**Topology**
+
+<p align="center">
+  <img src="lab5-ASA-Firewall/topology.png" alt="Lab 5 topology: ASA 5506-X with INSIDE, DMZ and OUTSIDE zones, routers R1 to R3 and PC-B, PC-C and a DMZ server" width="800">
+  <br><em>Lab 5 - ASA 5506-X between R1 (OUTSIDE), S2/PC-B (INSIDE) and S1/DMZ server (DMZ)</em>
+</p>
+
+**ASA interfaces**
+
+| Interface | Name | IP address | Security level |
+|---|---|---|---|
+| G1/1 | OUTSIDE | 209.165.200.226/29 | 0 |
+| G1/2 | INSIDE | 192.168.1.1/24 | 100 |
+| G1/3 | DMZ | 192.168.2.1/24 | 70 |
+
+PC-B (192.168.1.3) sits on INSIDE, the DMZ server (192.168.2.3) is published as **209.165.200.227**, and PC-C (172.16.3.3) is the remote administrator on the ISP side.
+
+**Key configuration**
+
+```
+NETSEC-ASA(config)# route OUTSIDE 0.0.0.0 0.0.0.0 209.165.200.225
+
+NETSEC-ASA(config)# object network INSIDE-NET
+NETSEC-ASA(config-network-object)# subnet 192.168.1.0 255.255.255.0
+NETSEC-ASA(config-network-object)# nat (INSIDE,OUTSIDE) dynamic interface
+
+NETSEC-ASA(config)# dhcpd address 192.168.1.5-192.168.1.36 INSIDE
+NETSEC-ASA(config)# dhcpd enable INSIDE
+NETSEC-ASA(config)# username admin password adminpa55
+NETSEC-ASA(config)# aaa authentication ssh console LOCAL
+NETSEC-ASA(config)# ssh 192.168.1.0 255.255.255.0 INSIDE
+NETSEC-ASA(config)# ssh 172.16.3.3 255.255.255.255 OUTSIDE
+
+NETSEC-ASA(config)# object network DMZ-SERVER
+NETSEC-ASA(config-network-object)# host 192.168.2.3
+NETSEC-ASA(config-network-object)# nat (DMZ,OUTSIDE) static 209.165.200.227
+NETSEC-ASA(config)# access-list OUTSIDE-DMZ permit icmp any host 192.168.2.3
+NETSEC-ASA(config)# access-list OUTSIDE-DMZ permit tcp any host 192.168.2.3 eq 80
+NETSEC-ASA(config)# access-group OUTSIDE-DMZ in interface OUTSIDE
+```
+
+**What it demonstrates**
+
+- Exploring the ASA (`show version`, `show file system`, `show flash:`) and naming interfaces with security levels (`nameif`, `security-level`)
+- A static default route and **PAT** with a network object, so the whole INSIDE LAN shares the OUTSIDE address
+- The ASA as a **DHCP server**, **local AAA** and **SSH** restricted by host and interface
+- A **DMZ** (level 70) with **static NAT** and an **ACL** that targets the server's real (private) address
+- Tests: PC-B reaches the ASA inside address but not the outside one, SSH works from PC-B and PC-C, and PC-C browses to `http://209.165.200.227`
+
+Full commands and evidence: [`Lab5_ASA_Compte_Rendu.pdf`](lab5-ASA-Firewall/Lab5_ASA_Compte_Rendu.pdf)
 
 ## OSPF - Single-area OSPFv2
 
@@ -276,8 +346,11 @@ Open any `.pkt` or `.pka` file with Packet Tracer (`File > Open`). Router config
 | `show zone security` | ZPF router | Zones and the interfaces that belong to them |
 | `show zone-pair security` | ZPF router | Zone pairs and the policy applied to each |
 | `show policy-map type inspect zone-pair` | ZPF router | Inspection policy details and per-class counters |
+| `show interface ip brief` | ASA | Interface status and IPs (ASA syntax, different from IOS) |
+| `show route` | ASA | ASA routing table, including the static default route `S*` |
+| `show nat` | ASA | NAT policies with translated / untranslated hit counters |
 | `ping <ip>` | routers and PCs | End-to-end reachability |
-| `copy running-config startup-config` | any router | Persist the configuration |
+| `copy running-config startup-config` | any router | Persist the configuration (`write memory` on the ASA) |
 
 ## Key takeaways
 
@@ -290,11 +363,13 @@ Open any `.pkt` or `.pka` file with Packet Tracer (`File > Open`). Router config
 - **Rule order matters.** The first matching rule wins, so specific rules go before general ones.
 - **ZPF zone pairs are unidirectional.** A policy from zone A to zone B says nothing about B to A; with `inspect`, return traffic of an allowed session is permitted automatically.
 - **Traffic between different zones is dropped by default** unless a zone pair with a policy allows it, whereas traffic inside one zone flows freely.
+- **ASA security levels set the default traffic direction.** Higher to lower is allowed, lower to higher is blocked unless an ACL permits it, so a DMZ at level 70 sits between INSIDE (100) and OUTSIDE (0).
+- **ASA ACLs match the real (private) address of a server, not its public NAT address**, because the translation happens before the ACL check.
 - **A router-generated `Destination host unreachable` means an ACL (or routing) decision**, whereas `Request timed out` points to a lost or silently dropped packet.
 
 ## Conventions
 
-- **Folders**: `labN-short-topic`, lowercase, hyphenated (`lab3-ACLs` keeps the course naming).
+- **Folders**: `labN-short-topic`, lowercase, hyphenated (`lab3-ACLs`, `lab4-ZPF-Firewall` and `lab5-ASA-Firewall` keep acronyms in capitals).
 - **Files**: `.pkt` / `.pka` for topologies, `.pdf` for reports and statements; filenames mix underscores, hyphens and numeric prefixes depending on the lab.
 - **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) (`feat`, `docs`, `chore`, `fix`), one logical change per commit, scoped by lab (for example `docs(lab1): add R2 screenshots`).
 
