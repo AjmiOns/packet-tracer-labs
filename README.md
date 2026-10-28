@@ -66,8 +66,8 @@ packet-tracer-labs/
 │   ├── Packet-Tracer-Configuring-a-Zone-Based-Policy-Firewall-ZPF.pdf   # Activity instructions
 │   └── topology.png                  # Topology screenshot (used in README)
 └── lab5-ASA-Firewall/
-    ├── Configure_ASA_Basic_Settings_and_Firewall_Using_the_CLI.pka
-    ├── Configure_ASA_Basic_Settings_and_Firewall_Using_the_CLI.pdf   # Activity instructions
+    ├── Configure ASA Basic Settings and Firewall Using the CLI.pka
+    ├── Configure ASA Basic Settings and Firewall Using the CLI.pdf   # Activity instructions
     ├── Lab5_ASA_Compte_Rendu.pdf     # Lab report with commands + screenshots
     └── topology.png                  # Topology screenshot (used in README)
 ```
