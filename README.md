@@ -24,8 +24,6 @@ Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-doma
 - [Lab 8 - GnuPG cryptography](#lab-8---gnupg-cryptography)
 - [OSPF - Single-area OSPFv2](#ospf---single-area-ospfv2)
 - [Getting started](#getting-started)
-- [Verification cheat sheet](#verification-cheat-sheet)
-- [Key takeaways](#key-takeaways)
 - [Conventions](#conventions)
 - [Author](#author)
 
@@ -36,60 +34,16 @@ Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-doma
 ```
 packet-tracer-labs/
 ├── README.md
-├── .gitignore
-├── configurationPackTracer/          # Single-Area OSPFv2 Packet Tracer activity
-│   └── Single-Area OSPFv2 Configuration.pka
-├── lab-bgp-config/
-│   └── BGP_lab2.pkt                  # BGP topology (Lab 2 base file)
-├── lab1-ebgp-basic/
-│   ├── Screenshots/                  # R1, R2, ISP-1 captures
-│   ├── topology.png                  # Topology screenshot (used in README)
-│   ├── BGP-Lab1.pkt                  # Packet Tracer topology
-│   ├── EnonceLab1.pdf                # Original lab statement (French)
-│   └── Lab1_eBGP_Compte_Rendu.pdf    # Lab report with commands + screenshots
-├── lab2-bgp-configuration/
-│   ├── Screenshots/                  # Router configs, routing tables, pings
-│   ├── topology.png                  # Topology screenshot (used in README)
-│   ├── Lab2_BGP_Compte_Rendu.pdf     # Lab report with commands + screenshots
-│   └── Practice Lab - BGP Configuration 2 v1.pkt
-├── lab3-ACLs/
-│   ├── 01.Configure Numbered Standard ACLs.pka
-│   ├── 01.Configuring Standard ACLs Instructions.pdf
-│   ├── 02.Configuring Extended ACLs Scenario 1.pka
-│   ├── 02.Configuring Extended ACLs Scenario 1 Instructions IG.pdf
-│   ├── 03.Configuring Extended ACLs Scenario 3.pka
-│   ├── 03.Configuring Extended ACLs Scenario 3 Instructions IG.pdf
-│   ├── Compte_rendu_01_ACL_standard.pdf
-│   ├── Compte_rendu_02_ACL_etendue_scenario1.pdf
-│   ├── Compte_rendu_03_ACL_etendue_scenario3.pdf
-│   ├── topology-01-standard.png                 # Topology screenshots (used in README)
-│   ├── topology-02-extended-scenario1.png
-│   └── topology-03-extended-scenario3.png
-├── lab4-ZPF-Firewall/
-│   ├── Configuring a Zone-Based Policy Firewall (ZPF).pka
-│   ├── Packet-Tracer-Configuring-a-Zone-Based-Policy-Firewall-ZPF.pdf   # Activity instructions
-│   └── topology.png                  # Topology screenshot (used in README)
-├── lab5-ASA-Firewall/
-│   ├── Configure ASA Basic Settings and Firewall Using the CLI.pka
-│   ├── Configure ASA Basic Settings and Firewall Using the CLI.pdf   # Activity instructions
-│   ├── Lab5_ASA_Compte_Rendu.pdf     # Lab report with commands + screenshots
-│   └── topology.png                  # Topology screenshot (used in README)
-├── lab6-NAT-PAT-Configuration/
-│   ├── 1-configure-dynamic-nat.pka                      # Activity 1: dynamic NAT
-│   ├── 1-Configuring Dynamic NAT Instructions.pdf
-│   ├── 2-configure-pat.pka                              # Activity 2: PAT
-│   ├── 2-Configuration de PAT (Port Address Translation).pdf
-│   ├── 3-investigate-nat-operation.pka                  # Activity 3: NAT operation
-│   ├── 3-Investigating NAT Operation Instructions.pdf
-│   ├── Topology-1.png                # Topology screenshots (used in README)
-│   ├── Topology-2.png
-│   └── Topology-3.png
-├── lab7-Static-Dynamic-NAT/
-│   ├── Implementing Static and Dynamic NAT.pka
-│   ├── Implementing Static and Dynamic NAT Instructions.pdf   # Activity instructions
-│   └── Topology.png                  # Topology screenshot (used in README)
-└── lab8-GnuPG-cryptographie/
-    └── TP1_GnuPG_structure.pdf       # Structured course sheet: commands, notes, cheat sheet
+├── configurationPackTracer/       # OSPFv2 (single area)
+├── lab-bgp-config/                # BGP base file
+├── lab1-ebgp-basic/               # eBGP basics
+├── lab2-bgp-configuration/        # BGP across three ASes
+├── lab3-ACLs/                     # Standard and extended ACLs
+├── lab4-ZPF-Firewall/             # Zone-Based Policy Firewall
+├── lab5-ASA-Firewall/             # Cisco ASA firewall
+├── lab6-NAT-PAT-Configuration/    # Dynamic NAT and PAT
+├── lab7-Static-Dynamic-NAT/       # Static and dynamic NAT
+└── lab8-GnuPG-cryptographie/      # GnuPG cryptography
 ```
 
 ## Labs overview
@@ -285,7 +239,7 @@ Packet Tracer activity 21.7.5: configure a **Cisco ASA 5506-X** from the command
 **Topology**
 
 <p align="center">
-  <img src="lab5-ASA-Firewall/topology.png" alt="Lab 5 topology: ASA 5506-X with INSIDE, DMZ and OUTSIDE zones, routers R1 to R3 and PC-B, PC-C and a DMZ server" width="800">
+  <img src="lab5-ASA-Firewall/Topology.png" alt="Lab 5 topology: ASA 5506-X with INSIDE, DMZ and OUTSIDE zones, routers R1 to R3 and PC-B, PC-C and a DMZ server" width="800">
   <br><em>Lab 5 - ASA 5506-X between R1 (OUTSIDE), S2/PC-B (INSIDE) and S1/DMZ server (DMZ)</em>
 </p>
 
@@ -477,53 +431,6 @@ cd packet-tracer-labs
 Open any `.pkt` or `.pka` file with Packet Tracer (`File > Open`). Router configurations are already applied; you can also replay them from the command blocks in each report.
 
 > Packet Tracer interface names depend on the modules installed. Lab 1's statement uses `S0/0/x` while the topology file uses `Serial0/1/x`; addressing is identical.
-
-## Verification cheat sheet
-
-| Command | Where | What it tells you |
-|---|---|---|
-| `show ip route` | any router | Routing table; `B` = BGP route, `B*` = BGP default route |
-| `show ip bgp` | any BGP router | BGP table: prefixes, next hop, AS path |
-| `show ip bgp summary` | any BGP router | Neighbor state and number of prefixes received |
-| `show access-list` | any router with ACLs | Rules in order, with match counters |
-| `show ip interface <int>` | any router with ACLs | Which ACL is applied on the interface, and in which direction |
-| `show zone security` | ZPF router | Zones and the interfaces that belong to them |
-| `show zone-pair security` | ZPF router | Zone pairs and the policy applied to each |
-| `show policy-map type inspect zone-pair` | ZPF router | Inspection policy details and per-class counters |
-| `show interface ip brief` | ASA | Interface status and IPs (ASA syntax, different from IOS) |
-| `show route` | ASA | ASA routing table, including the static default route `S*` |
-| `show nat` | ASA | NAT policies with translated / untranslated hit counters |
-| `show ip nat translations` | NAT router (IOS) | Active static and dynamic translations (inside local/global, outside local/global) |
-| `show ip nat statistics` | NAT router (IOS) | Interfaces marked inside/outside, pools, hits, misses and number of translations |
-| `clear ip nat translation *` | NAT router (IOS) | Empties the dynamic translations, useful to retest from a clean table |
-| `debug ip nat` | NAT router (IOS) | Live view of each packet being translated (turn off with `undebug all`) |
-| `gpg --list-keys` | any machine with GnuPG | Keys in your keyring: type, creation date, usage, expiry |
-| `gpg --fingerprint` | any machine with GnuPG | Key fingerprints, to confirm a key with its owner |
-| `gpg --verify <sig> <file>` | any machine with GnuPG | Checks a signature (`Good signature` = authentic and unmodified) |
-| `ping <ip>` | routers and PCs | End-to-end reachability |
-| `copy running-config startup-config` | any router | Persist the configuration (`write memory` on the ASA) |
-
-## Key takeaways
-
-- **eBGP neighbors must be reachable** and each side needs the correct `remote-as`; a typo in the neighbor address leaves a session stuck instead of failing loudly.
-- **`network` statements must match the routing table exactly** (prefix and mask), otherwise the route is not advertised.
-- **A single-homed company does not need BGP.** A static default route towards the ISP is enough. BGP is justified in multi-homed designs with several ISPs, where path selection and redundancy matter.
-- **TTL is a quick hop counter** when validating multi-router paths with ping.
-- **Place standard ACLs near the destination and extended ACLs near the source.** A standard ACL only sees the source address, so putting it close to the source would block too much.
-- **ACLs end with an implicit `deny any`.** List what is allowed, or finish with `permit ip any any` when you only want to block specific flows.
-- **Rule order matters.** The first matching rule wins, so specific rules go before general ones.
-- **ZPF zone pairs are unidirectional.** A policy from zone A to zone B says nothing about B to A; with `inspect`, return traffic of an allowed session is permitted automatically.
-- **Traffic between different zones is dropped by default** unless a zone pair with a policy allows it, whereas traffic inside one zone flows freely.
-- **ASA security levels set the default traffic direction.** Higher to lower is allowed, lower to higher is blocked unless an ACL permits it, so a DMZ at level 70 sits between INSIDE (100) and OUTSIDE (0).
-- **ASA ACLs match the real (private) address of a server, not its public NAT address**, because the translation happens before the ACL check.
-- **A router-generated `Destination host unreachable` means an ACL (or routing) decision**, whereas `Request timed out` points to a lost or silently dropped packet.
-- **NAT needs both interface roles.** Without `ip nat inside` and `ip nat outside` on the right interfaces, no translation happens even if the pool and the ACL are correct.
-- **The ACL in a NAT rule selects who is translated, it does not filter traffic.** A `permit` means "translate these hosts", not "allow these packets".
-- **Dynamic NAT is limited by its pool; PAT is not.** When every public address of the pool is in use, new hosts cannot get out; PAT (`overload`) lets thousands of hosts share one address through different port numbers.
-- **Use static NAT for servers.** A server must keep the same public address so that outside clients can always reach it; dynamic entries expire and may change.
-- **Clear the translation table before each test** (`clear ip nat translation *`), otherwise old entries can hide a misconfiguration.
-- **Asymmetric cryptography separates roles.** Encrypt with the recipient's public key, decrypt with your private key; sign with your private key, verify with the sender's public key.
-- **Verify key fingerprints out of band** and never share a private key; a lost passphrase means unrecoverable data.
 
 ## Conventions
 
