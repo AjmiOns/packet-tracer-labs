@@ -1,11 +1,12 @@
 # Packet Tracer Labs
 
 ![Cisco Packet Tracer](https://img.shields.io/badge/Cisco-Packet%20Tracer%208.x-1BA0D7?logo=cisco&logoColor=white)
-![Protocols](https://img.shields.io/badge/protocols-eBGP%20%7C%20OSPFv2%20%7C%20ACLs%20%7C%20ZPF%20%7C%20ASA-2E75B6)
+![Protocols](https://img.shields.io/badge/protocols-eBGP%20%7C%20OSPFv2%20%7C%20ACLs%20%7C%20ZPF%20%7C%20ASA%20%7C%20NAT%2FPAT-2E75B6)
+![Security](https://img.shields.io/badge/security-GnuPG%20%7C%20OpenPGP-3C8D5A)
 ![Status](https://img.shields.io/badge/status-in%20progress-yellow)
 ![Purpose](https://img.shields.io/badge/purpose-educational-lightgrey)
 
-Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-domain routing with **BGP**, intra-domain routing with **OSPFv2**, traffic filtering with **access control lists (ACLs)**, stateful filtering with a **zone-based policy firewall (ZPF)** and perimeter security with a **Cisco ASA firewall**. Each lab ships with the topology file, the original statement when available, annotated screenshots, and a written report (*compte rendu*) containing the exact commands used.
+Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-domain routing with **BGP**, intra-domain routing with **OSPFv2**, traffic filtering with **access control lists (ACLs)**, stateful filtering with a **zone-based policy firewall (ZPF)**, perimeter security with a **Cisco ASA firewall**, and address translation with **static NAT, dynamic NAT and PAT**. The repository also includes a cryptography lab on **GnuPG** (symmetric and asymmetric encryption, digital signatures). Each lab ships with the topology file, the original statement when available, annotated screenshots, and a written report (*compte rendu*) or a course sheet containing the exact commands used.
 
 ---
 
@@ -18,6 +19,9 @@ Hands-on networking labs built with **Cisco Packet Tracer**, covering inter-doma
 - [Lab 3 - Access control lists (ACLs)](#lab-3---access-control-lists-acls)
 - [Lab 4 - Zone-Based Policy Firewall (ZPF)](#lab-4---zone-based-policy-firewall-zpf)
 - [Lab 5 - Cisco ASA basic settings and firewall](#lab-5---cisco-asa-basic-settings-and-firewall)
+- [Lab 6 - NAT and PAT configuration](#lab-6---nat-and-pat-configuration)
+- [Lab 7 - Static and dynamic NAT](#lab-7---static-and-dynamic-nat)
+- [Lab 8 - GnuPG cryptography](#lab-8---gnupg-cryptography)
 - [OSPF - Single-area OSPFv2](#ospf---single-area-ospfv2)
 - [Getting started](#getting-started)
 - [Verification cheat sheet](#verification-cheat-sheet)
@@ -65,11 +69,27 @@ packet-tracer-labs/
 │   ├── Configuring a Zone-Based Policy Firewall (ZPF).pka
 │   ├── Packet-Tracer-Configuring-a-Zone-Based-Policy-Firewall-ZPF.pdf   # Activity instructions
 │   └── topology.png                  # Topology screenshot (used in README)
-└── lab5-ASA-Firewall/
-    ├── Configure ASA Basic Settings and Firewall Using the CLI.pka
-    ├── Configure ASA Basic Settings and Firewall Using the CLI.pdf   # Activity instructions
-    ├── Lab5_ASA_Compte_Rendu.pdf     # Lab report with commands + screenshots
-    └── topology.png                  # Topology screenshot (used in README)
+├── lab5-ASA-Firewall/
+│   ├── Configure ASA Basic Settings and Firewall Using the CLI.pka
+│   ├── Configure ASA Basic Settings and Firewall Using the CLI.pdf   # Activity instructions
+│   ├── Lab5_ASA_Compte_Rendu.pdf     # Lab report with commands + screenshots
+│   └── topology.png                  # Topology screenshot (used in README)
+├── lab6-NAT-PAT-Configuration/
+│   ├── 1-configure-dynamic-nat.pka                      # Activity 1: dynamic NAT
+│   ├── 1-Configuring Dynamic NAT Instructions.pdf
+│   ├── 2-configure-pat.pka                              # Activity 2: PAT
+│   ├── 2-Configuration de PAT (Port Address Translation).pdf
+│   ├── 3-investigate-nat-operation.pka                  # Activity 3: NAT operation
+│   ├── 3-Investigating NAT Operation Instructions.pdf
+│   ├── Topology-1.png                # Topology screenshots (used in README)
+│   ├── Topology-2.png
+│   └── Topology-3.png
+├── lab7-Static-Dynamic-NAT/
+│   ├── Implementing Static and Dynamic NAT.pka
+│   ├── Implementing Static and Dynamic NAT Instructions.pdf   # Activity instructions
+│   └── Topology.png                  # Topology screenshot (used in README)
+└── lab8-GnuPG-cryptographie/
+    └── TP1_GnuPG_structure.pdf       # Structured course sheet: commands, notes, cheat sheet
 ```
 
 ## Labs overview
@@ -81,7 +101,10 @@ packet-tracer-labs/
 | [Lab 3](lab3-ACLs) | Standard and extended ACLs (3 activities) | R1-R3, R1, RT1 | Traffic filtering | `.pka`, statements, 3 reports |
 | [Lab 4](lab4-ZPF-Firewall) | Zone-Based Policy Firewall | R1, R2, R3 | Security zones | `.pka`, instructions |
 | [Lab 5](lab5-ASA-Firewall) | Cisco ASA 5506-X: interfaces, NAT, DHCP, SSH, DMZ, ACL | R1, R2, R3, ASA 5506-X | INSIDE / DMZ / OUTSIDE | `.pka`, instructions, report |
-| [OSPF](configurationPackTracer) | Single-area OSPFv2 | see activity | Area 0 | `.pkt` |
+| [Lab 6](lab6-NAT-PAT-Configuration) | Dynamic NAT, PAT and NAT operation (3 activities) | see activities | Address translation | 3 `.pka`, 3 statements, 3 topology screenshots |
+| [Lab 7](lab7-Static-Dynamic-NAT) | Static and dynamic NAT combined | see activity | Address translation | `.pka`, instructions, topology screenshot |
+| [Lab 8](lab8-GnuPG-cryptographie) | GnuPG: symmetric/asymmetric encryption, signatures | none (Gpg4win, command line) | OpenPGP | structured PDF course sheet |
+| [OSPF](configurationPackTracer) | Single-area OSPFv2 | see activity | Area 0 | `.pka` |
 
 ---
 
@@ -262,7 +285,7 @@ Packet Tracer activity 21.7.5: configure a **Cisco ASA 5506-X** from the command
 **Topology**
 
 <p align="center">
-  <img src="lab5-ASA-Firewall/Topology.png" alt="Lab 5 topology: ASA 5506-X with INSIDE, DMZ and OUTSIDE zones, routers R1 to R3 and PC-B, PC-C and a DMZ server" width="800">
+  <img src="lab5-ASA-Firewall/topology.png" alt="Lab 5 topology: ASA 5506-X with INSIDE, DMZ and OUTSIDE zones, routers R1 to R3 and PC-B, PC-C and a DMZ server" width="800">
   <br><em>Lab 5 - ASA 5506-X between R1 (OUTSIDE), S2/PC-B (INSIDE) and S1/DMZ server (DMZ)</em>
 </p>
 
@@ -310,6 +333,126 @@ NETSEC-ASA(config)# access-group OUTSIDE-DMZ in interface OUTSIDE
 
 Full commands and evidence: [`Lab5_ASA_Compte_Rendu.pdf`](lab5-ASA-Firewall/Lab5_ASA_Compte_Rendu.pdf)
 
+## Lab 6 - NAT and PAT configuration
+
+Three Packet Tracer activities on **Network Address Translation** on a Cisco router, going from dynamic NAT to PAT and then to a hands-on investigation of how translations behave. Each activity comes with its own statement and topology screenshot.
+
+| # | Activity | Topic | Files |
+|---|---|---|---|
+| 1 | Configuring dynamic NAT | Translate inside private addresses using a pool of public addresses | `1-configure-dynamic-nat.pka`, statement, `Topology-1.png` |
+| 2 | Configuration of PAT | Share one public address between many hosts using port numbers (overload) | `2-configure-pat.pka`, statement (French), `Topology-2.png` |
+| 3 | Investigating NAT operation | Observe translations, counters and packet headers on each side of the NAT router | `3-investigate-nat-operation.pka`, statement, `Topology-3.png` |
+
+**Topologies**
+
+<p align="center">
+  <img src="lab6-NAT-PAT-Configuration/Topology-1.png" alt="Lab 6 activity 1 topology: dynamic NAT" width="700">
+  <br><em>Activity 1 - dynamic NAT</em>
+</p>
+
+<p align="center">
+  <img src="lab6-NAT-PAT-Configuration/Topology-2.png" alt="Lab 6 activity 2 topology: PAT" width="700">
+  <br><em>Activity 2 - PAT</em>
+</p>
+
+<p align="center">
+  <img src="lab6-NAT-PAT-Configuration/Topology-3.png" alt="Lab 6 activity 3 topology: investigating NAT operation" width="700">
+  <br><em>Activity 3 - investigating NAT operation</em>
+</p>
+
+**How NAT and PAT are configured on IOS** (generic model, names and addresses are placeholders)
+
+```
+! Dynamic NAT: pool of public addresses
+Router(config)# access-list <ACL-NUMBER> permit <private-network> <wildcard>
+Router(config)# ip nat pool <POOL-NAME> <first-public-ip> <last-public-ip> netmask <mask>
+Router(config)# ip nat inside source list <ACL-NUMBER> pool <POOL-NAME>
+
+! PAT: same ACL, but with the overload keyword
+Router(config)# ip nat inside source list <ACL-NUMBER> pool <POOL-NAME> overload
+! or, to reuse the address of the outside interface:
+Router(config)# ip nat inside source list <ACL-NUMBER> interface <outside-interface> overload
+
+! Mark the interfaces (mandatory)
+Router(config)# interface <inside-interface>
+Router(config-if)# ip nat inside
+Router(config)# interface <outside-interface>
+Router(config-if)# ip nat outside
+```
+
+**What it demonstrates**
+
+- Defining which hosts are translated with an ACL, and which public addresses they get with `ip nat pool`
+- The difference between **dynamic NAT** (one public address per active host, limited by the pool) and **PAT** (many hosts behind one address, distinguished by port)
+- Marking interfaces with `ip nat inside` and `ip nat outside`
+- Reading the translation table: inside local, inside global, outside local and outside global addresses
+- Verifying with `show ip nat translations`, `show ip nat statistics` and `clear ip nat translation *`
+
+## Lab 7 - Static and dynamic NAT
+
+Packet Tracer activity **Implementing Static and Dynamic NAT**, which combines both mechanisms on the same router: a **static** one-to-one translation to publish an internal server, and **dynamic** translation so internal users can reach the outside. Open [`Implementing Static and Dynamic NAT.pka`](lab7-Static-Dynamic-NAT) in Packet Tracer and follow the activity instructions (PDF in the same folder).
+
+**Topology**
+
+<p align="center">
+  <img src="lab7-Static-Dynamic-NAT/Topology.png" alt="Lab 7 topology: static and dynamic NAT" width="700">
+  <br><em>Lab 7 - static and dynamic NAT on the same router</em>
+</p>
+
+**Static NAT syntax** (generic model)
+
+```
+Router(config)# ip nat inside source static <inside-local-ip> <inside-global-ip>
+```
+
+**What it demonstrates**
+
+- A **permanent one-to-one mapping** between a private server address and a public address, so the server is reachable from outside at any time
+- Static and dynamic NAT working together on the same router, with the same `ip nat inside` / `ip nat outside` interface marking
+- Why static NAT suits servers (a fixed public address is needed) and dynamic NAT suits ordinary clients
+- Verification with `show ip nat translations` (static entries are always listed, dynamic ones appear only while traffic flows)
+
+## Lab 8 - GnuPG cryptography
+
+Unlike the previous labs, this one does not use Packet Tracer: it is a hands-on session with **GnuPG** (Gpg4win on Windows) to secure files with **OpenPGP** cryptography. The deliverable is a structured course sheet, [`TP1_GnuPG_structure.pdf`](lab8-GnuPG-cryptographie/TP1_GnuPG_structure.pdf), with the theory, every command explained, color-coded notes and a command cheat sheet.
+
+**Part 1 - Symmetric encryption (passphrase)**
+
+```
+echo "Ceci est un message confidentiel" > secret.txt
+gpg --symmetric secret.txt
+gpg --output secret_dechiffre.txt --decrypt secret.txt.gpg
+```
+
+**Part 2 - Asymmetric encryption (public/private keys)**
+
+```
+gpg --full-generate-key
+gpg --list-keys
+gpg --output publickey.asc --armor --export votremail@example.com
+gpg --import cle-collaborateur.asc
+gpg --output message_chiffre.gpg --encrypt --recipient bob@example.com message.txt
+gpg --output message_clair.txt --decrypt message_chiffre.gpg
+```
+
+**Part 3 - Digital signatures**
+
+```
+gpg --output fichier.sig --sign fichier.txt
+gpg --output fichier.sig --detach-sig fichier.txt
+gpg --verify fichier.sig fichier.txt
+```
+
+**What it demonstrates**
+
+- Symmetric encryption with a passphrase vs asymmetric encryption with a key pair
+- Generating, listing, exporting and importing keys, and reading a `gpg --list-keys` output (`pub`, `sub`, `[SC]`, `[E]`, expiry date)
+- Encrypting for a recipient with their **public** key and decrypting with your **private** key
+- Digital signatures: **authenticity** and **integrity**, with an embedded or a detached signature
+- Choosing modern algorithms (RSA 3072, AES256, SHA256/SHA512) and avoiding the deprecated SHA1
+
+> Never share or publish your private key, and keep your passphrase safe: an encrypted file cannot be recovered without it.
+
 ## OSPF - Single-area OSPFv2
 
 Packet Tracer activity on single-area OSPFv2 (area 0). Open the `.pkt` file in [`configurationPackTracer`](configurationPackTracer) and follow the activity instructions embedded in the file.
@@ -321,6 +464,7 @@ Packet Tracer activity on single-area OSPFv2 (area 0). Open the `.pkt` file in [
 **Requirements**
 
 - [Cisco Packet Tracer](https://www.netacad.com/) 8.x (free with a Cisco Networking Academy account)
+- [Gpg4win](https://www.gpg4win.org/download.html) (GnuPG and Kleopatra) for Lab 8
 - Any PDF reader for the reports
 
 **Clone and open**
@@ -349,6 +493,13 @@ Open any `.pkt` or `.pka` file with Packet Tracer (`File > Open`). Router config
 | `show interface ip brief` | ASA | Interface status and IPs (ASA syntax, different from IOS) |
 | `show route` | ASA | ASA routing table, including the static default route `S*` |
 | `show nat` | ASA | NAT policies with translated / untranslated hit counters |
+| `show ip nat translations` | NAT router (IOS) | Active static and dynamic translations (inside local/global, outside local/global) |
+| `show ip nat statistics` | NAT router (IOS) | Interfaces marked inside/outside, pools, hits, misses and number of translations |
+| `clear ip nat translation *` | NAT router (IOS) | Empties the dynamic translations, useful to retest from a clean table |
+| `debug ip nat` | NAT router (IOS) | Live view of each packet being translated (turn off with `undebug all`) |
+| `gpg --list-keys` | any machine with GnuPG | Keys in your keyring: type, creation date, usage, expiry |
+| `gpg --fingerprint` | any machine with GnuPG | Key fingerprints, to confirm a key with its owner |
+| `gpg --verify <sig> <file>` | any machine with GnuPG | Checks a signature (`Good signature` = authentic and unmodified) |
 | `ping <ip>` | routers and PCs | End-to-end reachability |
 | `copy running-config startup-config` | any router | Persist the configuration (`write memory` on the ASA) |
 
@@ -366,12 +517,19 @@ Open any `.pkt` or `.pka` file with Packet Tracer (`File > Open`). Router config
 - **ASA security levels set the default traffic direction.** Higher to lower is allowed, lower to higher is blocked unless an ACL permits it, so a DMZ at level 70 sits between INSIDE (100) and OUTSIDE (0).
 - **ASA ACLs match the real (private) address of a server, not its public NAT address**, because the translation happens before the ACL check.
 - **A router-generated `Destination host unreachable` means an ACL (or routing) decision**, whereas `Request timed out` points to a lost or silently dropped packet.
+- **NAT needs both interface roles.** Without `ip nat inside` and `ip nat outside` on the right interfaces, no translation happens even if the pool and the ACL are correct.
+- **The ACL in a NAT rule selects who is translated, it does not filter traffic.** A `permit` means "translate these hosts", not "allow these packets".
+- **Dynamic NAT is limited by its pool; PAT is not.** When every public address of the pool is in use, new hosts cannot get out; PAT (`overload`) lets thousands of hosts share one address through different port numbers.
+- **Use static NAT for servers.** A server must keep the same public address so that outside clients can always reach it; dynamic entries expire and may change.
+- **Clear the translation table before each test** (`clear ip nat translation *`), otherwise old entries can hide a misconfiguration.
+- **Asymmetric cryptography separates roles.** Encrypt with the recipient's public key, decrypt with your private key; sign with your private key, verify with the sender's public key.
+- **Verify key fingerprints out of band** and never share a private key; a lost passphrase means unrecoverable data.
 
 ## Conventions
 
-- **Folders**: `labN-short-topic`, lowercase, hyphenated (`lab3-ACLs`, `lab4-ZPF-Firewall` and `lab5-ASA-Firewall` keep acronyms in capitals).
-- **Files**: `.pkt` / `.pka` for topologies, `.pdf` for reports and statements; filenames mix underscores, hyphens and numeric prefixes depending on the lab.
-- **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) (`feat`, `docs`, `chore`, `fix`), one logical change per commit, scoped by lab (for example `docs(lab1): add R2 screenshots`).
+- **Folders**: `labN-short-topic`, lowercase, hyphenated (`lab3-ACLs`, `lab4-ZPF-Firewall`, `lab5-ASA-Firewall` and `lab6-NAT-PAT-Configuration` keep acronyms in capitals).
+- **Files**: `.pkt` / `.pka` for topologies, `.pdf` for reports, statements and course sheets, `.png` for topology screenshots; filenames mix underscores, hyphens and numeric prefixes depending on the lab (Lab 6 prefixes each activity with its number: `1-`, `2-`, `3-`).
+- **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) (`feat`, `docs`, `chore`, `fix`), one logical change per commit, scoped by lab (for example `docs(lab1): add R2 screenshots`, `feat(lab6): add PAT activity`).
 
 ## Author
 
